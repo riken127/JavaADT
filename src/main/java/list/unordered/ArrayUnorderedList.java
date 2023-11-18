@@ -4,7 +4,7 @@ import interfaces.UnorderedListADT;
 import list.ArrayList;
 
 public class ArrayUnorderedList<T> extends ArrayList<T> implements UnorderedListADT<T> {
-    ArrayUnorderedList() {
+    public ArrayUnorderedList() {
         super();
     }
 
