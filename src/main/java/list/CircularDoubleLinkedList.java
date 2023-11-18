@@ -115,19 +115,21 @@ public abstract class CircularDoubleLinkedList<T> implements ListADT<T> {
         return new CircularDoubleLinkedListIterator(modCount);
     }
 
-    private class CircularDoubleLinkedListIterator<T> implements Iterator<T> {
+    private class CircularDoubleLinkedListIterator implements Iterator<T> {
 
         private DoubleNode<T> current;
         private int expectedModCount;
+        private int iteratorCounter;
 
         public CircularDoubleLinkedListIterator(int modCount) {
-            current = (DoubleNode<T>) front;
+            current = front;
             expectedModCount = modCount;
+            iteratorCounter = 0;
         }
 
         @Override
         public boolean hasNext() {
-            return current.getNext() != front;
+            return (iteratorCounter < size());
         }
 
         @Override
@@ -140,6 +142,7 @@ public abstract class CircularDoubleLinkedList<T> implements ListADT<T> {
             }
             T result = current.getCurrent();
             current = current.getNext();
+            iteratorCounter++;
             return result;
         }
 

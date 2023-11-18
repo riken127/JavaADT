@@ -42,6 +42,8 @@ public class UnorderedCircularDoubleLinkedList<T> extends CircularDoubleLinkedLi
             rear.setNext(newNode);
             rear = newNode;
         }
+        count++;
+        modCount++;
     }
 
     @Override
@@ -50,17 +52,21 @@ public class UnorderedCircularDoubleLinkedList<T> extends CircularDoubleLinkedLi
         DoubleNode<T> newNode = new DoubleNode<>();
 
         newNode.setCurrent(element);
+
+
         if (isEmpty()) {
             throw new NoSuchElementException("No elements found");
         } else {
-            while(loopNode != null) {
+            for(int i = 0; i < size() && loopNode.getNext() != front; i++){
                 if(loopNode.getCurrent().equals(target)) {
-                    newNode.setNext(loopNode.getNext());
-                    newNode.setPrevious(loopNode);
-                    if(loopNode == rear) {
-                        rear.setNext(newNode);
+                    if(loopNode.getNext() != front ) {
+                        newNode.setNext(loopNode.getNext());
+                        newNode.setPrevious(loopNode);
+                        loopNode.getNext().setPrevious(loopNode);
+                    }else {
                         rear = newNode;
                     }
+                    loopNode.setNext(newNode);
                     count++;
                     modCount++;
                     return;
