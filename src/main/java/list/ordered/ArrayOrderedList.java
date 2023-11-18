@@ -1,12 +1,14 @@
 package list.ordered;
 
+import interfaces.OrderedListADT;
 import list.ArrayList;
 
-public class ArrayOrderedList<T> extends ArrayList<T> {
+public class ArrayOrderedList<T> extends ArrayList<T> implements OrderedListADT<T> {
     public ArrayOrderedList() {
         super();
     }
 
+    @Override
     public void add(T element) {
         if (size() == list.length) {
             expandCapacity();
