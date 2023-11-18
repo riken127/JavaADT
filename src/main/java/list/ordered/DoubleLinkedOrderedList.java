@@ -1,10 +1,12 @@
 package list.ordered;
 
+import exceptions.ElementAlreadyExistsException;
 import interfaces.OrderedListADT;
 import list.DoubleList;
 import nodes.DoubleNode;
 import stack.ArrayStack;
 
+import javax.management.openmbean.KeyAlreadyExistsException;
 import java.security.InvalidParameterException;
 
 public class DoubleLinkedOrderedList<T> extends DoubleList<T> implements OrderedListADT<T> {
@@ -19,34 +21,40 @@ public class DoubleLinkedOrderedList<T> extends DoubleList<T> implements Ordered
         else
             throw new InvalidParameterException("OrderedDoubleList: add(): element is not comparable");
 
-        DoubleNode<T> traverse = front;
+
         DoubleNode<T> newNode = new DoubleNode<>();
         newNode.setCurrent(element);
-        boolean found = false;
-
-        if (isEmpty()) {
+        if (front == null) {
             front = newNode;
             rear = newNode;
-        }else if (temp.compareTo(rear.getCurrent()) >= 0) {
-            rear.setNext(newNode);
-            newNode.setPrevious(rear);
-            newNode.setNext(null);
-            rear = newNode;
-        }else if (temp.compareTo(front.getCurrent()) <= 0) {
-            front.setPrevious(newNode);
+        } else if (temp.compareTo(front.getCurrent()) <= 0) {
             newNode.setNext(front);
-            newNode.setPrevious(null);
+            front.setPrevious(newNode);
             front = newNode;
-        }else {
-            while((temp.compareTo(traverse.getCurrent()) > 0))
-                traverse = traverse.getNext();
-            newNode.setNext(traverse);
-            newNode.setPrevious(traverse.getPrevious());
-            traverse.getPrevious().setNext(newNode);
-            traverse.setPrevious(newNode);
+        } else if (temp.compareTo(rear.getCurrent())>=0) {
+            newNode.setPrevious(rear);
+            rear.setNext(newNode);
+            rear = newNode;
+        } else {
+            DoubleNode<T> current = front.getNext();
+
+            while(current != null && temp.compareTo(current.getCurrent()) > 0) {
+                current = current.getNext();
+            }
+
+            if (current != null) {
+                newNode.setPrevious(current.getPrevious());
+                newNode.setNext(current);
+                current.getPrevious().setNext(newNode);
+                current.setPrevious(newNode);
+            } else {
+                newNode.setPrevious(rear);
+                rear.setNext(newNode);
+                rear = newNode;
+            }
         }
-        modCount++;
         count++;
+        modCount++;
     }
 
     public ArrayStack<T> invertAndStack() {

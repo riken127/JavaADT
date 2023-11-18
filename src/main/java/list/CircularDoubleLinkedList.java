@@ -127,7 +127,7 @@ public abstract class CircularDoubleLinkedList<T> implements ListADT<T> {
 
         @Override
         public boolean hasNext() {
-            return current != rear;
+            return current.getNext() != front;
         }
 
         @Override

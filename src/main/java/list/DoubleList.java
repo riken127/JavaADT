@@ -107,7 +107,7 @@ public class DoubleList<T> implements ListADT<T> {
         private int expectedModCount;
         public DoubleListIterator(int modCount) {
             expectedModCount = modCount;
-            current = rear;
+            current = front;
         }
         @Override
         public boolean hasNext() {
