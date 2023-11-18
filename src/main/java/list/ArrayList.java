@@ -11,7 +11,7 @@ public abstract class ArrayList<T> implements ListADT<T> {
     private static final int NOT_FOUND = -1;
     private static final int EXPAND_BY = 2;
     protected int rear;
-    private int modCount;
+    protected int modCount;
     protected T[] list;
     public ArrayList() {
         this.rear = 0;
