@@ -8,7 +8,8 @@ import java.util.NoSuchElementException;
 
 public class DoubleList<T> implements ListADT<T> {
     protected DoubleNode<T> front, rear;
-    protected int count, modCount;
+    protected int count;
+    protected int modCount;
 
     @Override
     public T removeFirst() {
