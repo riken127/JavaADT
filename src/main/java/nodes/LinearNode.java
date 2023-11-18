@@ -12,6 +12,7 @@ public class LinearNode<T> {
         this.current = null;
         this.next = null;
     }
+
     public T getCurrent() {
         return current;
     }
