@@ -49,25 +49,44 @@ public abstract class CircularLinkedList<T> implements ListADT<T> {
         return removedElement;
     }
 
-    @Override
     public T remove(T element) {
-        LinearNode<T> loopNode = rear;
-        T removedElement = null;
-        if (rear == null) {
-            throw new NullPointerException("The list is empty");
+        if (isEmpty()) {
+            return null;
         }
-        for (int i = 0; i < count && loopNode.getNext() != front; i++) {
+
+        LinearNode<T> loopNode = front;
+        T removedElement = null;
+
+        while (loopNode != rear && loopNode.getNext() != front) {
             if (loopNode.getNext().getCurrent().equals(element)) {
                 LinearNode<T> newNext = loopNode.getNext().getNext();
                 removedElement = loopNode.getNext().getCurrent();
-                loopNode.getNext().setNext(null);
+
+                if (loopNode.getNext() == rear) {
+                    rear = loopNode;
+                }
+
                 loopNode.setNext(newNext);
                 count--;
                 break;
             }
+            loopNode = loopNode.getNext();
         }
+
+        // Update front if the first node is removed
+        if (front != null && front.getCurrent().equals(element)) {
+            front = front.getNext();
+            count--;
+        }
+
+        // Update rear if the last node is removed
+        if (isEmpty()) {
+            rear = null;
+        }
+
         return removedElement;
     }
+
 
     @Override
     public T first() {
@@ -110,15 +129,17 @@ public abstract class CircularLinkedList<T> implements ListADT<T> {
 
         private LinearNode<T> current;
         private int expectedModCount;
+        private int iteratorCounter;
 
         public CircularLinkedListIterator(int modCount) {
             current = (LinearNode<T>) front;
             expectedModCount = modCount;
+            iteratorCounter = 0;
         }
 
         @Override
         public boolean hasNext() {
-            return current != rear;
+            return (iteratorCounter < size());
         }
 
         @Override
@@ -131,6 +152,7 @@ public abstract class CircularLinkedList<T> implements ListADT<T> {
             }
             T result = current.getCurrent();
             current = current.getNext();
+            iteratorCounter++;
             return result;
         }
 
@@ -138,5 +160,21 @@ public abstract class CircularLinkedList<T> implements ListADT<T> {
         public void remove() {
             throw new UnsupportedOperationException();
         }
+    }
+
+    @Override
+    public String toString() {
+        LinearNode<T> node = front;
+        String s = new String();
+        for(int i = 0; i < size(); i++) {
+            if(node == front) {
+                s += "#FRONT#";
+            }else if (node == rear) {
+                s += "#REAR#";
+            }
+            s += "[&" + node + "\t*" +node.getCurrent() + "\t->\t" + node.getNext() + "]\n";
+            node = node.getNext();
+        }
+        return s;
     }
 }
