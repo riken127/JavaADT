@@ -124,6 +124,9 @@ public abstract class ArrayList<T> implements ListADT<T> {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
+            if(expectedModCount != modCount) {
+                throw new RuntimeException();
+            }
             return array[i++];
         }
 
