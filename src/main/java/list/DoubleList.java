@@ -104,7 +104,7 @@ public class DoubleList<T> implements ListADT<T> {
 
     private class DoubleListIterator implements Iterator<T> {
         private DoubleNode<T> current;
-        private int expectedModCount;
+        private final int expectedModCount;
         public DoubleListIterator(int modCount) {
             expectedModCount = modCount;
             current = front;
@@ -139,7 +139,7 @@ public class DoubleList<T> implements ListADT<T> {
 
     @Override
     public String toString() {
-       String s = new String();
+       String s = "";
        DoubleNode<T> loopNode = rear;
         for (int i = 0; i < count && loopNode.getNext() != null ; i++) {
             s += loopNode.getCurrent().toString();

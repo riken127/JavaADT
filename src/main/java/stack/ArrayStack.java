@@ -38,13 +38,9 @@ public class ArrayStack<T> implements StackADT<T> {
 
     private void expandCapacity() {
         T[] temporaryStack = (T[]) (new Object[size()]);
-        for (int i = 0; i < size(); i++) {
-            temporaryStack[i] = this.stack[i];
-        }
+        if (size() >= 0) System.arraycopy(this.stack, 0, temporaryStack, 0, size());
         this.stack = (T[]) (new Object[size() << 2]);
-        for (int i = 0; i < size(); i++) {
-            this.stack[i] = temporaryStack[i];
-        }
+        if (size() >= 0) System.arraycopy(temporaryStack, 0, this.stack, 0, size());
     }
 
     /**

@@ -8,5 +8,5 @@ public interface SmackStackADT<T> {
      *
      * @return returns the last element
      */
-    public T smack() throws EmptyCollectionException;
+    T smack() throws EmptyCollectionException;
 }

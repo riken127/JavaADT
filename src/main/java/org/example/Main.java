@@ -1,19 +1,28 @@
 package org.example;
 
+import list.LinkedList;
+import list.SortingAndSearching;
+import list.unordered.UnorderedCircularDoubleLinkedList;
+import list.unordered.UnorderedLinkedList;
+
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
     public static void main(String[] args) {
-        // Press Alt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        UnorderedLinkedList<Integer> integers = new UnorderedLinkedList<>();
+        integers.addToRear(1);
+        integers.addToRear(2);
+        integers.addToRear(100);
+        integers.addToRear(20);
+        integers.addToFront(412);
+        integers.addToFront(9999);
+        integers.addToRear(5);
 
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
-
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+8.
-            System.out.println("i = " + i);
+        System.out.println(integers);try {
+            SortingAndSearching.quickSort(integers);
+        }catch(Exception e) {
+            e.getMessage();
         }
+        System.out.println(integers);
     }
 }

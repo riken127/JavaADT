@@ -1,17 +1,19 @@
 package interfaces;
 
+import exceptions.EmptyCollectionException;
+
 import java.util.Iterator;
 
 public interface ListADT<T> extends Iterable<T>{
-    public T removeFirst();
-    public T removeLast();
-    public T remove(T element);
-    public T first();
-    public T last();
-    public boolean contains(T target);
-    public boolean isEmpty();
-    public int size();
-    public Iterator<T> iterator();
+    T removeFirst() throws EmptyCollectionException;
+    T removeLast() throws EmptyCollectionException;
+    T remove(T element) throws EmptyCollectionException;
+    T first();
+    T last();
+    boolean contains(T target) throws EmptyCollectionException;
+    boolean isEmpty();
+    int size();
+    Iterator<T> iterator();
     @Override
-    public String toString();
+    String toString();
 }

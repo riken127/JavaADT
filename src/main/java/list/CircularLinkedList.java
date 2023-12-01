@@ -100,7 +100,7 @@ public abstract class CircularLinkedList<T> implements ListADT<T> {
 
     @Override
     public boolean contains(T target) {
-        LinearNode loopNode = rear;
+        LinearNode<T> loopNode = rear;
         for (int i = 0; i < count && loopNode.getNext() != front; i++) {
             if (loopNode.getCurrent().equals(target)) {
                 return true;
@@ -128,7 +128,7 @@ public abstract class CircularLinkedList<T> implements ListADT<T> {
     private class CircularLinkedListIterator<T> implements Iterator<T> {
 
         private LinearNode<T> current;
-        private int expectedModCount;
+        private final int expectedModCount;
         private int iteratorCounter;
 
         public CircularLinkedListIterator(int modCount) {
@@ -165,7 +165,7 @@ public abstract class CircularLinkedList<T> implements ListADT<T> {
     @Override
     public String toString() {
         LinearNode<T> node = front;
-        String s = new String();
+        String s = "";
         for(int i = 0; i < size(); i++) {
             if(node == front) {
                 s += "#FRONT#";

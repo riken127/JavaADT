@@ -1,7 +1,9 @@
 package interfaces;
 
+import exceptions.EmptyCollectionException;
+
 public interface UnorderedListADT<T> extends ListADT<T> {
-    public void addToFront(T element);
-    public void addToRear(T element);
-    public void addAfter(T element, T target);
+    void addToFront(T element);
+    void addToRear(T element);
+    void addAfter(T element, T target) throws EmptyCollectionException;
 }

@@ -118,7 +118,7 @@ public abstract class CircularDoubleLinkedList<T> implements ListADT<T> {
     private class CircularDoubleLinkedListIterator implements Iterator<T> {
 
         private DoubleNode<T> current;
-        private int expectedModCount;
+        private final int expectedModCount;
         private int iteratorCounter;
 
         public CircularDoubleLinkedListIterator(int modCount) {
@@ -150,5 +150,6 @@ public abstract class CircularDoubleLinkedList<T> implements ListADT<T> {
         public void remove() {
             throw new UnsupportedOperationException();
         }
+
     }
 }

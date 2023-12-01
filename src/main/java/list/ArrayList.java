@@ -104,9 +104,9 @@ public abstract class ArrayList<T> implements ListADT<T> {
         return rear;
     }
     private class ArrayIterator implements Iterator<T> {
-        private T[] array;
+        private final T[] array;
         private int i;
-        private int expectedModCount;
+        private final int expectedModCount;
         public ArrayIterator(int modCount) {
             array = list;
             i = 0;
@@ -142,15 +142,14 @@ public abstract class ArrayList<T> implements ListADT<T> {
     public void expandCapacity() {
         T[] larger = (T[]) new Object[this.rear * EXPAND_BY];
 
-        for(int i = 0; i < rear; i++)
-            larger[i] = this.list[i];
+        if (rear >= 0) System.arraycopy(this.list, 0, larger, 0, rear);
 
         this.list = larger;
     }
 
     @Override
     public String toString() {
-        String s = new String();
+        String s = "";
         for(int i = 0; i < rear; i++) {
             s += list[i].toString();
         }
